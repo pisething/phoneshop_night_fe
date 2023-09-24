@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-6 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="m-sm-3">
+                    <form [formGroup]="userForm">
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input class="form-control form-control-lg" type="text" formControlName="username" placeholder="Enter your name" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input class="form-control form-control-lg" type="email" formControlName="email" placeholder="Enter your email" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input class="form-control form-control-lg" type="password" formControlName="password" placeholder="Enter password" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Roles</label>
+                            <label formArrayName="roles" *ngFor="let role of roles.controls; let i=index" class="form-check">
+                                <input class="form-check-input" type="checkbox" [formControlName]="i">
+                                <span class="form-check-label">
+                                  {{roleNames[i]}}
+                                </span>
+                            </label>                        
+                        </div>
+                        <div class="d-grid gap-2 mt-3">                        
+                            <button class="btn btn-primary" (click)="saveUser()">Create</button>
+                        </div>
+                    </form>
+                    {{userForm.value | json}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
