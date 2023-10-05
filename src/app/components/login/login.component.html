@@ -1,0 +1,38 @@
+<main class="d-flex w-100">
+    <div class="container d-flex flex-column">
+        <div class="row vh-100">
+            <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-table h-100">
+                <div class="d-table-cell align-middle">
+
+                    <div class="text-center mt-4">
+                        <h1 class="h2">Welcome back!</h1>
+                        <p class="lead">
+                            Sign in to your account to continue
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="m-sm-3">
+                                <form [formGroup]="loginForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">username</label>
+                                        <input class="form-control form-control-lg" type="text" formControlName="username" placeholder="Enter your username" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Password</label>
+                                        <input class="form-control form-control-lg" type="password" formControlName="password" placeholder="Enter your password" />
+                                    </div>    
+                                    <div class="d-grid gap-2 mt-3">
+                                        <button class="btn btn-lg btn-primary" (click)="signIn()">Sign in</button>
+                                    </div>
+                                </form>
+                            </div>
+                            {{loginForm.value | json}}
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

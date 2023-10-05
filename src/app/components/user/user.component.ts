@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, FormArray} from '@angular/forms';
-import { User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user',
@@ -10,10 +10,12 @@ import { User } from 'src/app/models/user.model';
 export class UserComponent implements OnInit {
 
   userForm!: FormGroup;
+  isSubmitted = false;
 
   roleNames = ["Sale","Account"];
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+     private userService: UserService) { }
 
   get roles(){
     return this.userForm.get("roles") as FormArray;
@@ -24,7 +26,7 @@ export class UserComponent implements OnInit {
       username: [''],
       email: [''],
       password: [''],
-      roles: this.fb.array([]),
+      roles: this.fb.array([])
     });
 
     for(let i of this.roleNames){
@@ -33,8 +35,31 @@ export class UserComponent implements OnInit {
 
   }
 
+  private getUserData(){
+    let data = this.userForm.value;
+
+    let selectedRoles = [];
+
+    for(let i =0; i<data.roles.length; i++){
+      if(data.roles[i]){
+          selectedRoles.push(this.roleNames[i])
+      }
+    }
+    data.roles = selectedRoles;
+    //console.log(data);
+    return data;
+  }
+
   saveUser(){
-    let myUser = new User(this.userForm, this.roleNames);
+    this.isSubmitted = true;
+    let data = this.getUserData();
+    // call api
+    this.userService.saveUser(data).subscribe(() =>{
+      console.log("User saved");
+    }, err =>{
+      console.log("Error");
+      console.log(err);
+    })
   }
 
 }
