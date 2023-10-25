@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  @Output() logoutEvent = new EventEmitter<boolean>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  signout(){
+    localStorage.removeItem("token");
+    this.logoutEvent.emit(false);
+    //console.log("Signout");
   }
 
 }

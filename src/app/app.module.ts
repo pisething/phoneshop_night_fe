@@ -9,8 +9,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { UserComponent } from './components/user/user.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { BrandListComponent } from './components/brand/list/brand-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { LoginComponent } from './components/login/login.component';
     FooterComponent,
     BrandComponent,
     UserComponent,
-    LoginComponent
+    LoginComponent,
+    BrandListComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,11 @@ import { LoginComponent } from './components/login/login.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true // can use mutiple interceptor
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

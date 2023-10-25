@@ -1,5 +1,5 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit {
   
   loginForm!: FormGroup;
+  @Output() loginEvent = new EventEmitter<boolean>();
 
   constructor(private userService: UserService,
     private fb: FormBuilder) { }
@@ -27,10 +28,13 @@ export class LoginComponent implements OnInit {
     console.log(loginData);
     this.userService.login(loginData).subscribe((res : HttpResponse<any>) =>{
       console.log("LogIn success");
-      console.log("===============");
-      console.log(res);
-      console.log("===============");
-      //console.log(res.headers.get("Authorization"));
+      
+      console.log("====== Authorization Header =========");
+      console.log(res.headers.get("Authorization"));
+      let token = res.headers.get("Authorization")!;
+      // set to local storage
+      localStorage.setItem("token", token);
+      this.loginEvent.emit(true);
       
     }, err =>{
       console.log(err);
