@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-6 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="m-sm-3">
+                    <form [formGroup]="brandForm">
+                        <div class="mb-3">
+                            <label class="form-label">Brand Id</label>
+                            <input class="form-control form-control-lg" type="text" formControlName="id" [disabled]="true" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Brand Name</label>
+                            <input class="form-control form-control-lg" type="text" formControlName="name" placeholder="Enter brand name" />
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-3">                        
+                            <button class="btn btn-primary" (click)="saveBrand()" [disabled]="isSubmitted">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

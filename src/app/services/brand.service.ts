@@ -29,4 +29,12 @@ export class BrandService {
     return this.http.get<any[]>(this.url + "brands", {params: brandParam});
   }
 
+  getById(id: number){
+    return this.http.get<any>(this.url + "brands/" + id);
+  }
+
+  updateBrand(brand: any){
+    return this.http.put(this.url + "brands/" + brand.id,brand);
+  }
+
 }
