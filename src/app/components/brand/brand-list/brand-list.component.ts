@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BrandService } from 'src/app/services/brand.service';
 
 @Component({
@@ -11,21 +12,15 @@ export class BrandListComponent implements OnInit {
 
   brands!: any[];
 
-  constructor(private brandService: BrandService) { }
+  constructor(private brandService: BrandService, 
+    private router: Router) { }
 
   ngOnInit(): void {
 
     let param = new HttpParams()
     param = param.append("_limit",5);
     this.getBrands(param);
-    /*
-    this.brandService.getBrandList(param).subscribe(res =>{
-      console.log(res);
-      this.brands = res.list;
-    }, err=>{
-      console.log(err);
-    });
-    */
+
   }
 
   private getBrands(param : HttpParams){
@@ -43,6 +38,15 @@ export class BrandListComponent implements OnInit {
     let param = new HttpParams()
     param = param.append("_limit",limit);
     this.getBrands(param);
+  }
+
+  goToBrandForm(){
+    this.router.navigate(["brand/form"]);
+  }
+
+  edit(brandId: number){
+    console.log(brandId);
+    this.router.navigate(["brand/form", brandId]);
   }
 
 }
